@@ -1,9 +1,7 @@
 package objects;
 
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  *
@@ -11,11 +9,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Company extends InfoEntity{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    private int id;
+
     private String name;
     private String description;
     private int cvr;
@@ -30,6 +24,14 @@ public class Company extends InfoEntity{
         this.cvr = cvr;
         this.NumEmployees = NumEmployees;
         this.marketValue = marketValue;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
     }
 
     public int getId() {
@@ -75,7 +77,5 @@ public class Company extends InfoEntity{
     public void setMarketValue(long marketValue) {
         this.marketValue = marketValue;
     }
-    
-    
     
 }

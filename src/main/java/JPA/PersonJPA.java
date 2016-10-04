@@ -11,12 +11,6 @@ import rest.ca2.PersonRest;
  */
 public class PersonJPA implements PersonFacade{
 
-    PersonRest pr;
-    
-    public PersonJPA() {
-        pr = new PersonRest();
-    }
-    
     @Override
     public Person getPerson(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

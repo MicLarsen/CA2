@@ -7,9 +7,6 @@ package objects;
 
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 /**
@@ -18,18 +15,18 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 public class Person extends InfoEntity{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    private int id;
-    private String firstName;
-    private String lastName;
+   
+    protected String firstName;
+    protected String lastName;
     
     @ManyToMany
-    private List<Hobby> hobbies;
+    protected List<Hobby> hobbies;
     
     public Person(){}
+
+    public String getEmail() {
+        return email;
+    }
     
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -55,7 +52,24 @@ public class Person extends InfoEntity{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
     
+   
     
     
     

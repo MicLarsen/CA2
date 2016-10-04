@@ -32,5 +32,4 @@ public class JSONConverter {
         Object jsonObject = gson.toJson(persons);
         return jsonObject.toString();
     }
-    
 }

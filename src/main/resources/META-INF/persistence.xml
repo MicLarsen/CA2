@@ -16,8 +16,8 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="Nitten0181"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
-            <property name="javax.persistence.sql-load-script-source" value="SQL/buildDatabase.sql"/>
-            <property name="javax.persistence.sql-load-script-source" value="SQL/populate.sql"/>
+            <!--<property name="javax.persistence.sql-load-script-source" value="SQL/buildDatabase.sql"/>-->
+            <!--<property name="javax.persistence.sql-load-script-source" value="SQL/populate.sql"/>-->
             <!--<property name="javax.persistence.sql-load-script-source" value="SQL/SQLQueryTests.sql"/>-->
         </properties>
     </persistence-unit>

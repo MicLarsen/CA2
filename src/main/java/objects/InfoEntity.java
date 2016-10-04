@@ -15,21 +15,19 @@ import javax.persistence.OneToMany;
  * @author Michael
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class InfoEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+abstract public class InfoEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    private int id;
-    private String email;
-    
+    protected int id;
+    protected String email;
     
     @OneToMany(mappedBy = "infoEntity")
-    private List<Phone> phones;
+    protected List<Phone> phones;
                        
     @ManyToOne
-    private Address address;
+    protected Address address;
         
     public InfoEntity(){}
     
@@ -45,10 +43,4 @@ public class InfoEntity {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    
-    
 }
