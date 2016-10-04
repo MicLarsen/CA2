@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest.ca2;
 
 import JPA.PersonJPA;
@@ -25,7 +20,6 @@ import javax.ws.rs.core.MediaType;
 import objects.Address;
 import objects.Hobby;
 import objects.Person;
-import objects.PersonAll;
 import objects.Phone;
 import objects.Result;
 import utility.JSONConverter;
@@ -67,7 +61,7 @@ public class PersonRest {
         
         Address address = new Address("some address" , "some info");
         
-        Person person = new PersonAll("michael", "Larsen",  address , hobbies, phones);
+        Person person = new Person("michael", "Larsen",  address , hobbies, phones);
         
         Result res = new Result();
 
