@@ -14,4 +14,3 @@ SELECT `city` FROM `cityinfo` WHERE `zip` = 4684;
 SELECT `city` FROM `cityinfo` WHERE `zip` = 5700; 
 SELECT `city` FROM `cityinfo` WHERE `zip` = 6600;
 SELECT `city` FROM `cityinfo` WHERE `zip` = 8220;
-

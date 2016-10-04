@@ -1,8 +1,3 @@
-/**
- * Author:  Michael
- * Created: 03-10-2016
- */
-
 DROP DATABASE IF EXISTS 'CA2';
 CREATE DATABASE 'CA2';
 USE DATABASE 'CA2';
