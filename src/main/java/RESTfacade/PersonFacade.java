@@ -15,7 +15,9 @@ import objects.Person;
  */
 public interface PersonFacade {
 
-    public Person getPerson(int id);
+    public Person getPersonSimpel(int id);
+    
+    public Person getPersonFull(int id);
 
     public List<Person> getPersons();
 
@@ -25,6 +27,6 @@ public interface PersonFacade {
     
     public Person editPerson(int id);
     
-    public Person addPerson();
+    public Person addPerson(Person person);
 
 }

@@ -51,9 +51,9 @@ public class PersonRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     public Object getPerson(@PathParam("id") int id) {
-        
+
         Person person = new Person("michael", "Larsen");
-        
+
         Result res = new Result();
 
         res.addPerson(person);
@@ -63,75 +63,126 @@ public class PersonRest {
         Object jsonObject = gson.toJson(res);
 
         return jsonObject;
+    }
+
+    //TEMP
+    public Person createPerson() {
+        hobbies.add(new Hobby("tennis", "plaiying tennis"));
+        hobbies.add(new Hobby("tabletennis", "playiong tabletennis"));
+
+        phones.add(new Phone(12121212, "hjem"));
+        phones.add(new Phone(12123412, "arbejde"));
+
+        Address address = new Address("some address", "some info");
+
+        Person person = new Person("michael", "Larsen", address, hobbies, phones);
+        return person;
     }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/complete/{id}")
     public Object getPersonComplete(@PathParam("id") int id) {
-        hobbies.add(new Hobby("tennis","plaiying tennis"));
-        hobbies.add(new Hobby("tabletennis", "playiong tabletennis"));
-        
-        phones.add(new Phone(12121212, "hjem"));
-        phones.add(new Phone(12123412, "arbejde"));  
-        
-        Address address = new Address("some address" , "some info");
-        
-        Person person = new Person("michael", "Larsen",  address , hobbies, phones);
-        
-        Result res = new Result();
 
-        res.addPerson(person);
+//        Person person = createPerson();
+        Person person = pjpa.getPersonFull(id);
 
-        Gson gson = new GsonBuilder().create();
+        if (person != null) {
 
-        Object jsonObject = gson.toJson(res);
+            Result res = new Result();
 
-        return jsonObject;
+            res.addPerson(person);
+
+            Gson gson = new GsonBuilder().create();
+
+            Object jsonObject = gson.toJson(res);
+
+            return jsonObject;
+        } else {
+            //cast exception
+            return null;
+        }
     }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/complete")
     public Object getPersonsComplete() {
-//        persons = fp.getPersons();
-        Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-        return jsonObject;
+
+        persons = pjpa.getPersons();
+
+        if (persons != null) {
+
+            Object jsonObject = JSONConverter.getJSONFromPerson(persons);
+            return jsonObject;
+        } else {
+            //cast Exception
+            return null;
+        }
     }
-    
+
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/city")
-    public Object getPersonFromCity(@PathParam("city") String city) {
-//        persons = fp.getPersonFromCity(city);
-        Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-        return jsonObject;
+    @Path("/zip")
+    public Object getPersonFromCity(@PathParam("zip") int zip) {
+
+        persons = pjpa.getPersons(zip);
+        if (persons != null) {
+
+            Object jsonObject = JSONConverter.getJSONFromPerson(persons);
+            return jsonObject;
+        } else {
+            //cast Exception 
+            return null;
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
-    public void addPerson(String newPerson) {
-        Person aPerson = JSONConverter.getPersonFromJson(newPerson);
-//        pr.addPerson(aPerson);
+    public Object addPerson(String newPerson) {
+
+        Person aprson = pjpa.addPerson(new Gson().fromJson(newPerson, Person.class));
+
+        if (person != null) {
+
+            Object jsonObject = JSONConverter.getJSONFromPerson(person);
+            return jsonObject;
+
+        } else {
+            //cast exception
+            return null;
+        }
     }
 
-    
-    
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("delete")
-    public void deletePerson(@QueryParam("id") int id) {
-//        Person deleted = pr.deletePerson(id);
+    public boolean deletePerson(@QueryParam("id") int id
+    ) {
+
+        boolean isDeleted = true; //= pr.deletePerson(id);
+        if (isDeleted) {
+            return true;
+        } else {
+            //cast Exception 
+            return false;
+        }
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("edit")
-    public void editPerson(@QueryParam("object") String person, @PathParam("id") int id) {
+    public Person editPerson(@QueryParam("object") String person,
+            @PathParam("id") int id
+    ) {
+
         Person editedPerson = JSONConverter.getPersonFromJson(person);
 //        fp.editPerson(editedPerson);
+
+        return null;
     }
 
 }
