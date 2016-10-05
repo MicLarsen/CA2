@@ -8,6 +8,7 @@ package utility;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
+import objects.Company;
 import objects.Person;
 
 /**
@@ -30,6 +31,12 @@ public class JSONConverter {
     public static String getJSONFromPerson(List<Person> persons) {
         Gson gson = new GsonBuilder().create();
         Object jsonObject = gson.toJson(persons);
+        return jsonObject.toString();
+    }
+    
+    public static String getJSONFromCompany(Company c) {
+        Gson gson = new GsonBuilder().create();
+        Object jsonObject = gson.toJson(c);
         return jsonObject.toString();
     }
 }

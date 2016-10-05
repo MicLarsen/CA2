@@ -8,17 +8,18 @@ import javax.persistence.Entity;
  * @author Michael
  */
 @Entity
-public class Company extends InfoEntity{
+public class Company extends InfoEntity {
 
     private String name;
     private String description;
     private int cvr;
     private int NumEmployees;
     private long marketValue;
-    
-    public Company() {}
-    
-    public Company(String name , String description, int cvr, int NumEmployees, long marketValue) {
+
+    public Company() {
+    }
+
+    public Company(String name, String description, int cvr, int NumEmployees, long marketValue) {
         this.name = name;
         this.description = description;
         this.cvr = cvr;
@@ -26,16 +27,18 @@ public class Company extends InfoEntity{
         this.marketValue = marketValue;
     }
 
-    public String getEmail() {
-        return email;
+    public Company(String name, String description, int cvr, int NumEmployees, long marketValue, List<Phone> phones, String email) {
+        this.name = name;
+        this.description = description;
+        this.cvr = cvr;
+        this.NumEmployees = NumEmployees;
+        this.marketValue = marketValue;
+        this.phones = phones;
+        this.email=email;
     }
-
+    
     public List<Phone> getPhones() {
         return phones;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -77,5 +80,5 @@ public class Company extends InfoEntity{
     public void setMarketValue(long marketValue) {
         this.marketValue = marketValue;
     }
-    
+
 }
