@@ -50,6 +50,8 @@ public class Phone {
         this.description = description;
     }
     
-    
+    public int getInfoEntId(){
+        return infoEntity.id;
+    }
     
 }
