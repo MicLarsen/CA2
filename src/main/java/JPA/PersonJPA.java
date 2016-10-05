@@ -51,18 +51,20 @@ public class PersonJPA implements PersonFacade{
     
     @Override
     public Person getPersonSimpel(int id) {
-        try {
-            aPerson = em.find(Person.class, id);
-             Query phonequery = em.createQuery("SELECT u FROM phone u WHERE id = ?").setParameter(1, id);
-             this.phones = (List<Phone>) phonequery.getResultList();
-             Query hobbyquery = em.createQuery("SELECT u FROM hobby u WHERE id = ?").setParameter(1, id);
-             this.hobbies = (List<Hobby>) hobbyquery.getResultList();
-             address = em.find(Address.class, id);
-            em.getTransaction().commit();
-            person = (aPerson.getFirstName()) 
-        } finally {
-            em.close();
-        }
+//        try {
+////            aPerson = em.find(Person.class, id);
+////             Query phonequery = em.createQuery("SELECT u FROM phone u WHERE id = ?").setParameter(1, id);
+////             this.phones = (List<Phone>) phonequery.getResultList();
+////             Query hobbyquery = em.createQuery("SELECT u FROM hobby u WHERE id = ?").setParameter(1, id);
+////             this.hobbies = (List<Hobby>) hobbyquery.getResultList();
+////             address = em.find(Address.class, id);
+//            
+//Query query = em.createQuery("SELECT c1,c2,c3,c4 FROM person c1 join c1.id c2.hobby join c3 inner join c1.id c2 ")
+//em.getTransaction().commit();
+//            person =  
+//        } finally {
+//            em.close();
+//        }
         return person;
     }
 
