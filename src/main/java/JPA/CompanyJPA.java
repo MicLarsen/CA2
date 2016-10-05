@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import objects.Company;
 import objects.Phone;
 
+
 /**
  *
  * @author Michael
@@ -28,7 +29,12 @@ public class CompanyJPA implements CompanyFacade {
         try {
 
             em.getTransaction().begin();
-            c = em.find(Company.class, cvr);
+//            c = em.find(Company.class, cvr);
+            Query q = em.createNativeQuery("SELECT c FROM Company c WHERE c.cvr = ?",Company.class);
+            q.setParameter(1, cvr);
+            
+            c = (Company) q.getResultList();
+            
             em.getTransaction().commit();
             return c;
 
