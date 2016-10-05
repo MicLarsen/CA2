@@ -10,6 +10,10 @@ $(document).ready(function () {
         $("#mainContent").load("AboutUs.html");
     })
     
+    $("#addPerson").click(function() {
+        $("#mainContent").load("webPerson/addPerson.html");
+    })
+    
     $("#docRestApi").click(function() {
         
         $("#mainContent").load("webDocumentation/restAPI.html");
