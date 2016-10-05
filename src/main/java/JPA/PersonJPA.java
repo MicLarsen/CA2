@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import objects.Address;
 import objects.CityInfo;
 import objects.Hobby;
@@ -51,8 +52,14 @@ public class PersonJPA implements PersonFacade{
     @Override
     public Person getPersonSimpel(int id) {
         try {
-            person = em.find(Person.class, id);
+            aPerson = em.find(Person.class, id);
+             Query phonequery = em.createQuery("SELECT u FROM phone u WHERE id = ?").setParameter(1, id);
+             this.phones = (List<Phone>) phonequery.getResultList();
+             Query hobbyquery = em.createQuery("SELECT u FROM hobby u WHERE id = ?").setParameter(1, id);
+             this.hobbies = (List<Hobby>) hobbyquery.getResultList();
+             address = em.find(Address.class, id);
             em.getTransaction().commit();
+            person = (aPerson.getFirstName()) 
         } finally {
             em.close();
         }

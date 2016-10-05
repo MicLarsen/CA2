@@ -5,6 +5,7 @@
  */
 package objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 public class CityInfo {
 
     @Id
+    @Column(name = "ZIP")
     private int ZIP;
     private String CITY;
 

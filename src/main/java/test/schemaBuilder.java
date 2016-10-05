@@ -19,7 +19,7 @@ public class schemaBuilder {
         
         Map<String, String> prorperties = new HashMap();
 //        prorperties.put("javax.persistence.sql-load-script-source", "SQL/buildDatabase.sql");
-        prorperties.put("javax.persistence.sql-load-script-source", "SQL/populate.sql");
+//        prorperties.put("javax.persistence.sql-load-script-source", "SQL/populate.sql");
 //        prorperties.put("javax.persistence.sql-load-script-source", "SQL/SQLQueryTests.sql");
         
         Persistence.generateSchema("CA2", prorperties);
