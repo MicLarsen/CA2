@@ -5,6 +5,9 @@
  */
 package rest.ca2;
 
+import JPA.CompanyJPA;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -13,6 +16,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
+import objects.Company;
 
 /**
  * REST Web Service
@@ -24,11 +28,13 @@ public class CompanyRest {
 
     @Context
     private UriInfo context;
+    CompanyJPA cjpa;
 
     /**
      * Creates a new instance of CompanyRest
      */
     public CompanyRest() {
+        cjpa = new CompanyJPA();
     }
 
     /**
@@ -37,9 +43,11 @@ public class CompanyRest {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String getJson(Company c) {
         //TODO return proper representation object
-        throw new UnsupportedOperationException();
+        Gson gson = new GsonBuilder().create();
+        Object json = gson.toJson(c);
+        return json.toString();
     }
 
     /**
@@ -49,5 +57,9 @@ public class CompanyRest {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
+        Company c = new Gson().fromJson(content, Company.class);
+
     }
+    
+    
 }
