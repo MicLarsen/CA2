@@ -22,6 +22,11 @@ $(document).ready(function () {
         var hobbyDesc3 = $("#hobbyDescription3").val();
 
         var hej = "";
+        var phones = ArrayList();
+        
+        $('form id["#phone"] .phones').each(function() {
+            
+        })
 
         console.log(hej);
         console.log(firstname + " " + lastname);

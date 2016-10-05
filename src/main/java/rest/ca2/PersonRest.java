@@ -33,8 +33,8 @@ import utility.JSONConverter;
 public class PersonRest {
 
     PersonJPA pjpa;
-    List<Person> persons;
     Person person;
+    List<Person> persons;
     List<Hobby> hobbies;
     List<Phone> phones;
 
@@ -49,10 +49,26 @@ public class PersonRest {
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("test")
-    public Object getPerson() {
-
+    @Path("/{id}")
+    public Object getPerson(@PathParam("id") int id) {
         
+        Person person = new Person("michael", "Larsen");
+        
+        Result res = new Result();
+
+        res.addPerson(person);
+
+        Gson gson = new GsonBuilder().create();
+
+        Object jsonObject = gson.toJson(res);
+
+        return jsonObject;
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/complete/{id}")
+    public Object getPersonComplete(@PathParam("id") int id) {
         hobbies.add(new Hobby("tennis","plaiying tennis"));
         hobbies.add(new Hobby("tabletennis", "playiong tabletennis"));
         
@@ -76,36 +92,18 @@ public class PersonRest {
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/complete/id")
-    public Object getPersonComplete(@PathParam("id") int id) {
-//        persons = fp.getPersons();
-        Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-        return jsonObject;
-    }
-
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/complete")
     public Object getPersonsComplete() {
 //        persons = fp.getPersons();
         Object jsonObject = JSONConverter.getJSONFromPerson(persons);
         return jsonObject;
     }
-
+    
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/contactinfo")
-    public Object getPersonContactInfo() {
-//        persons = fp.getPersons();
-        Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-        return jsonObject;
-    }
-
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/contactinfo/id")
-    public Object getPersonContactInfoID() {
-//        persons = fp.getPersons();
+    @Path("/city")
+    public Object getPersonFromCity(@PathParam("city") String city) {
+//        persons = fp.getPersonFromCity(city);
         Object jsonObject = JSONConverter.getJSONFromPerson(persons);
         return jsonObject;
     }
@@ -114,11 +112,13 @@ public class PersonRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
-    public void addNewPerson(String newPerson) {
+    public void addPerson(String newPerson) {
         Person aPerson = JSONConverter.getPersonFromJson(newPerson);
 //        pr.addPerson(aPerson);
     }
 
+    
+    
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("delete")
