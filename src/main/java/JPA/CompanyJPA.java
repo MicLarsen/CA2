@@ -44,13 +44,13 @@ public class CompanyJPA implements CompanyFacade {
         EntityManager em = emf.createEntityManager();
         Phone p = em.find(Phone.class, phone);
         
-        Query query = em.createNativeQuery("SELECT c FROM Company c WHERE c.id = ?", Company.class);
+        Query query = em.createNativeQuery("SELECT c.name, c.description, c.cvr, c.numemployees, c.marketvalue FROM Company c WHERE c.id = ?", Company.class);
         query.setParameter(1, p.getInfoEntId());
         
         List<Company> companies = query.getResultList();
         Company c = companies.get(0);
         
-        
+        return c;
         
     }
 
