@@ -42,6 +42,7 @@ $(document).ready(function () {
             lastName: $("#lastname").val(),
             address: address,
             phones: phoneList,
+            email: $("#email").val(),
             hobbies: hobbyList
         }
 

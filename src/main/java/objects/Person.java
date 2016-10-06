@@ -9,30 +9,28 @@ import javax.persistence.ManyToMany;
  * @author Michael
  */
 @Entity
-public class Person extends InfoEntity{
-   
+public class Person extends InfoEntity {
+
     protected String firstName;
     protected String lastName;
-    
+
     @ManyToMany
     protected List<Hobby> hobbies;
-    
-    public Person(){}
 
-    public String getEmail() {
-        return email;
+    public Person() {
     }
-    
+
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    
+
     public Person(String firstName, String lastName, Address address, List<Hobby> hobbies, List<Phone> phones) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.hobbies = hobbies;
+        this.email = email;
         this.phones = phones;
     }
 
@@ -74,5 +72,9 @@ public class Person extends InfoEntity{
 
     public void setHobbies(List<Hobby> hobbies) {
         this.hobbies = hobbies;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

@@ -24,7 +24,6 @@ import objects.Hobby;
 import objects.Person;
 import objects.Phone;
 import objects.Result;
-import utility.JSONConverter;
 
 /**
  * REST Web Service
@@ -131,10 +130,8 @@ public class PersonRest {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
     public void addPerson(String newPerson) {
-
-        Person aPerson = new Gson().fromJson(newPerson, Person.class);
         
-        pjpa.addPerson(aPerson);
+        Person aPerson = new Gson().fromJson(newPerson, Person.class);
         
         if (aPerson.getHobbies() != null) {
 
@@ -200,7 +197,7 @@ public class PersonRest {
             @PathParam("id") int id
     ) {
 
-        Person editedPerson = JSONConverter.getPersonFromJson(person);
+
 //        fp.editPerson(editedPerson);
 
         return null;
