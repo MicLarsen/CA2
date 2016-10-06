@@ -66,6 +66,11 @@ $(document).ready(function () {
 
     })
 
+$(document).on("pageload",function(){
+    
+  
+
+});
 
     $("#addPhone").click(function () {
         $("#phoneAdded").append('<div id="phoneDiv">Phonenumber : <input class="phone#" type="text" placeholder="add new number"> Phonedesciption : <input class="phoneDesc" type="text" placeholder="add phone desciption"><br></div>');

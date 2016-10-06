@@ -23,7 +23,6 @@ import objects.Hobby;
 import objects.Person;
 import objects.Phone;
 
-
 /**
  * REST Web Service
  *
