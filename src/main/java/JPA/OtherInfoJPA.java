@@ -1,16 +1,15 @@
 package JPA;
 
 import RESTfacade.OtherInfoFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import objects.Address;
-import static objects.InfoEntity_.id;
-import objects.Person;
+import objects.CityInfo;
 import objects.Phone;
-import utility.EManager;
 
 /**
  *
@@ -21,9 +20,9 @@ public class OtherInfoJPA implements OtherInfoFacade {
     EntityManager em;
     Phone phone;
     List<Phone> phones;
+    List<CityInfo> cityInfoList;
 
     public OtherInfoJPA() {
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("REST");
         this.em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -54,7 +53,7 @@ public class OtherInfoJPA implements OtherInfoFacade {
                     em.close();
                 }
                 break;
-                
+
             case "company":
                 try {
                     Query query = em.createQuery("SELECT c from Phone c join c.Company p WHERE p.name = ?").
@@ -68,7 +67,7 @@ public class OtherInfoJPA implements OtherInfoFacade {
             default:
                 break;
         }
-  
+
         return phones;
     }
 
@@ -82,6 +81,21 @@ public class OtherInfoJPA implements OtherInfoFacade {
     @Override
     public List<Phone> getPhone(String type, int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CityInfo> getCityInfo() {
+        this.cityInfoList = new ArrayList<CityInfo>();
+        try {
+
+            Query cityQuery = em.createQuery("SELECT u FROM CityInfo u");
+            cityInfoList = cityQuery.getResultList();
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+        return cityInfoList;
     }
 
 }
