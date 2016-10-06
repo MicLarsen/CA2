@@ -32,7 +32,6 @@ public class ApplicationConfig extends Application {
 
         resources.add(Exceptions.GenericExceptionMapper.class);
         resources.add(Exceptions.NoPersonFoundExceptionMapper.class);
-        resources.add(Exceptions.GenericInputExceptionMapper.class);
         resources.add(rest.ca2.CityinfoRest.class);
         resources.add(rest.ca2.CompanyRest.class);
         resources.add(rest.ca2.OtherInfoRest.class);
