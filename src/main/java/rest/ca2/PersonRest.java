@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 import objects.Hobby;
 import objects.Person;
 import objects.Phone;
-import utility.JSONConverter;
+
 
 /**
  * REST Web Service
@@ -196,7 +196,7 @@ public class PersonRest {
             @PathParam("id") int id
     ) {
 
-        Person editedPerson = JSONConverter.getPersonFromJson(person);
+
 //        fp.editPerson(editedPerson);
 
         return null;
