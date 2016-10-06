@@ -5,6 +5,8 @@
  */
 package rest.ca2;
 
+import Exceptions.NoPersonFoundException;
+import JPA.OtherInfoJPA;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
@@ -27,6 +29,7 @@ import objects.CityInfo;
 public class CityinfoRest {
 
     public List<CityInfo> cityInfo;
+    Gson gsonBuilder;
 
     @Context
     private UriInfo context;
@@ -35,6 +38,7 @@ public class CityinfoRest {
      * Creates a new instance of CityinfoRest
      */
     public CityinfoRest() {
+        this.gsonBuilder = new GsonBuilder().create();
     }
 
     /**
@@ -66,6 +70,24 @@ public class CityinfoRest {
             //throw new NotFoundException(city);x
         }
         return returnObject;
+    }
+    
+     /**
+     * Retrieves representation of an instance of rest.ca2.CityinfoRest
+     *
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("list")
+    public Object getCityInfo() {
+    
+        OtherInfoJPA jpa = new OtherInfoJPA();
+        
+        List cityInfo = jpa.getCityInfo();
+
+        return this.gsonBuilder.toJson(cityInfo);
+    
     }
 
     /**
