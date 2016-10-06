@@ -31,17 +31,15 @@ public class CompanyJPA implements CompanyFacade {
         try {
 
             em.getTransaction().begin();
-//            c = em.find(Company.class, cvr);
             Query q = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class);
             q.setParameter("cvr", cvr);
 
             em.getTransaction().commit();
             c = (Company) q.getSingleResult();
+
             return c;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("something went wrong");
             em.getTransaction().rollback();
             return null;
         } finally {
@@ -54,7 +52,7 @@ public class CompanyJPA implements CompanyFacade {
         Phone p = em.find(Phone.class, phone);
 
         Query query = em.createNativeQuery("SELECT c.name, c.description, c.cvr, c.numemployees, c.marketvalue FROM Company c WHERE c.id = ?", Company.class);
-        query.setParameter(1, p.getInfoEntId());
+        query.setParameter(1, phone);
 
         List<Company> companies = query.getResultList();
         Company c = companies.get(0);
@@ -108,12 +106,6 @@ public class CompanyJPA implements CompanyFacade {
     public boolean createCompany(Company comp) {
         EntityManager em = emf.createEntityManager();
         try {
-            comp.setEmail("NicklasMolving@gmail.com");
-            comp.setAddress(new Address("Hej", "ldsf", new CityInfo(3992, "Slædepatrulje Sirius")));
-            List<Phone> phones = new ArrayList();
-            phones.add(new Phone(52506288, "new phone"));
-            comp.setPhones(phones);
-            comp.addIEToPhone();
             
             em.getTransaction().begin();
             em.persist(comp);
@@ -121,7 +113,6 @@ public class CompanyJPA implements CompanyFacade {
             
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             em.getTransaction().rollback();
             return false;
         } finally {
