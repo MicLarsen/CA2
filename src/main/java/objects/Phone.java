@@ -1,5 +1,6 @@
 package objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,4 +55,7 @@ public class Phone {
         return infoEntity.id;
     }
     
+    public void setInfoEntity(InfoEntity inf){
+        this.infoEntity = inf;
+    }
 }

@@ -27,6 +27,15 @@ public class Company extends InfoEntity {
         this.marketValue = marketValue;
     }
 
+    public Company(String name, String description, int cvr, int NumEmployees, long marketValue, String email) {
+        this.name = name;
+        this.description = description;
+        this.cvr = cvr;
+        this.NumEmployees = NumEmployees;
+        this.marketValue = marketValue;
+        this.email = email;
+    }
+
     public Company(String name, String description, int cvr, int NumEmployees, long marketValue, List<Phone> phones, String email) {
         this.name = name;
         this.description = description;
@@ -34,17 +43,21 @@ public class Company extends InfoEntity {
         this.NumEmployees = NumEmployees;
         this.marketValue = marketValue;
         this.phones = phones;
-        this.email=email;
-    }
-    
-    public void setAddress(Address a){
-        this.address = a;
-    }
-    
-    public void setEmail(String email){
         this.email = email;
     }
-    
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public void setAddress(Address a) {
+        this.address = a;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<Phone> getPhones() {
         return phones;
     }

@@ -25,7 +25,10 @@ public class InfoEntity implements Serializable {
     protected int id;
     protected String email;
     
-    @OneToMany(mappedBy = "infoEntity")
+    
+    
+    
+    @OneToMany(mappedBy = "infoEntity", cascade = CascadeType.PERSIST)
     protected List<Phone> phones;
                        
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -45,4 +48,10 @@ public class InfoEntity implements Serializable {
         return email;
     }
 
+    public void addIEToPhone(){
+        for(Phone p: phones){
+            p.setInfoEntity(this);
+        }
+    }
+    
 }

@@ -1,6 +1,7 @@
 package JPA;
 
 import RESTfacade.CompanyFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +10,6 @@ import javax.persistence.Query;
 import objects.Address;
 import objects.CityInfo;
 import objects.Company;
-import objects.InfoEntity;
 import objects.Phone;
 
 /**
@@ -110,6 +110,11 @@ public class CompanyJPA implements CompanyFacade {
         try {
             comp.setEmail("NicklasMolving@gmail.com");
             comp.setAddress(new Address("Hej", "ldsf", new CityInfo(3992, "Slædepatrulje Sirius")));
+            List<Phone> phones = new ArrayList();
+            phones.add(new Phone(52506288, "new phone"));
+            comp.setPhones(phones);
+            comp.addIEToPhone();
+            
             em.getTransaction().begin();
             em.persist(comp);
             em.getTransaction().commit();
