@@ -93,12 +93,12 @@ public class PersonJPA implements PersonFacade {
             try {
                 em.persist(new Person(person.getFirstName(), person.getLastName()));
 //                em.merge(new Address(person.getAddress().getStreet(), person.getAddress().getAdditionalInfo()));
-                for (int i = 0; i < person.getPhones().size(); i++) {
-                    em.merge(new Phone(person.getPhones().get(i).getNumber(), person.getPhones().get(i).getDescription()));
-                }
-                for (int i = 0; i < person.getHobbies().size(); i++) {
-                    em.merge(new Hobby(person.getHobbies().get(i).getName(), person.getHobbies().get(i).getDescription()));
-                }
+//                for (int i = 0; i < person.getPhones().size(); i++) {
+//                    em.merge(new Phone(person.getPhones().get(i).getNumber(), person.getPhones().get(i).getDescription()));
+//                }
+//                for (int i = 0; i < person.getHobbies().size(); i++) {
+//                    em.merge(new Hobby(person.getHobbies().get(i).getName(), person.getHobbies().get(i).getDescription()));
+//                }
                 em.getTransaction().commit();
             } catch (Exception e) {
                 //throw new SQLException(e);

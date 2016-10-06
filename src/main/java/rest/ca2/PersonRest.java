@@ -131,6 +131,8 @@ public class PersonRest {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
     public void addPerson(String newPerson) {
+        
+        System.out.println(newPerson);
 
         Person aPerson = new Gson().fromJson(newPerson, Person.class);
         
