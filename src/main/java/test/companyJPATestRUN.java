@@ -17,7 +17,7 @@ public class companyJPATestRUN {
         
         cjpa.createCompany(comp);
         
-        Company c = cjpa.getCompany(12345678);
+        Company c = cjpa.getCompanyByCVR(12345678);
         System.out.println(c.getName());
     }
     

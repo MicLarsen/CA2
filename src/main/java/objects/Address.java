@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Address {
     private String Street;
     private String AdditionalInfo;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private CityInfo cityInfo;
     
     @OneToMany(mappedBy = "address")

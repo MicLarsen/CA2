@@ -1,6 +1,8 @@
 package objects;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +18,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-abstract public class InfoEntity {
+public class InfoEntity implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +28,7 @@ abstract public class InfoEntity {
     @OneToMany(mappedBy = "infoEntity")
     protected List<Phone> phones;
                        
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     protected Address address;
         
     public InfoEntity(){}
