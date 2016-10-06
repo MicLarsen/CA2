@@ -1,5 +1,6 @@
 package rest.ca2;
 
+import Exceptions.NoPersonFoundException;
 import JPA.PersonJPA;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,6 +38,7 @@ public class PersonRest {
     List<Person> persons;
     List<Hobby> hobbies;
     List<Phone> phones;
+    Gson gsonBuilder;
 
     @Context
     private UriInfo context;
@@ -45,6 +47,7 @@ public class PersonRest {
         this.pjpa = new PersonJPA();
         this.hobbies = new ArrayList<Hobby>();
         this.phones = new ArrayList<Phone>();
+        this.gsonBuilder = new GsonBuilder().create();
     }
 
     @GET
@@ -52,17 +55,13 @@ public class PersonRest {
     @Path("/{id}")
     public Object getPerson(@PathParam("id") int id) {
 
-        Person person = new Person("michael", "Larsen");
-
-        Result res = new Result();
-
-        res.addPerson(person);
-
-        Gson gson = new GsonBuilder().create();
-
-        Object jsonObject = gson.toJson(res);
-
-        return jsonObject;
+        person = pjpa.getPersonSimpel(id);
+        
+        if (person == null) {
+            throw new NoPersonFoundException("No person with the requested ID exists.");
+        }
+ 
+        return this.gsonBuilder.toJson(person);
     }
 
     //TEMP
@@ -74,7 +73,6 @@ public class PersonRest {
         phones.add(new Phone(12123412, "arbejde"));
 
 //        Address address = new Address("some address", "some info");
-
 //        Person person = new Person("michael", "Larsen", address, hobbies, phones);
         return person;
     }
@@ -84,24 +82,14 @@ public class PersonRest {
     @Path("/complete/{id}")
     public Object getPersonComplete(@PathParam("id") int id) {
 
-//        Person person = createPerson();
-        Person person = pjpa.getPersonFull(id);
+        person = pjpa.getPersonFull(id);
 
-        if (person != null) {
-
-            Result res = new Result();
-
-            res.addPerson(person);
-
-            Gson gson = new GsonBuilder().create();
-
-            Object jsonObject = gson.toJson(res);
-
-            return jsonObject;
-        } else {
-            //cast exception
-            return null;
+        if (person == null) {
+            throw new NoPersonFoundException("No person with the requested ID exists.");
         }
+        
+        return this.gsonBuilder.toJson(person);
+
     }
 
     @GET
