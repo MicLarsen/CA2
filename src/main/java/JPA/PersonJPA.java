@@ -91,7 +91,7 @@ public class PersonJPA implements PersonFacade {
         this.person = person;
         try {
             try {
-                em.persist(new Person(person.getFirstName(), person.getLastName()));
+                em.persist(person);
 //                em.merge(new Address(person.getAddress().getStreet(), person.getAddress().getAdditionalInfo()));
 //                for (int i = 0; i < person.getPhones().size(); i++) {
 //                    em.merge(new Phone(person.getPhones().get(i).getNumber(), person.getPhones().get(i).getDescription()));
