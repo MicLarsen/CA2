@@ -24,7 +24,6 @@ import objects.Hobby;
 import objects.Person;
 import objects.Phone;
 import objects.Result;
-import utility.JSONConverter;
 
 /**
  * REST Web Service
@@ -198,7 +197,7 @@ public class PersonRest {
             @PathParam("id") int id
     ) {
 
-        Person editedPerson = JSONConverter.getPersonFromJson(person);
+
 //        fp.editPerson(editedPerson);
 
         return null;
