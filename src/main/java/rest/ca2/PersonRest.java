@@ -73,9 +73,9 @@ public class PersonRest {
         phones.add(new Phone(12121212, "hjem"));
         phones.add(new Phone(12123412, "arbejde"));
 
-        Address address = new Address("some address", "some info");
+//        Address address = new Address("some address", "some info");
 
-        Person person = new Person("michael", "Larsen", address, hobbies, phones);
+//        Person person = new Person("michael", "Larsen", address, hobbies, phones);
         return person;
     }
 
@@ -141,19 +141,46 @@ public class PersonRest {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
-    public Object addPerson(String newPerson) {
+    public void addPerson(String newPerson) {
 
-        Person aprson = pjpa.addPerson(new Gson().fromJson(newPerson, Person.class));
+        System.out.println(newPerson);
+        Person aPerson = new Gson().fromJson(newPerson, Person.class);
+        pjpa.addPerson(aPerson);
+//        if (aPerson.getHobbies() != null) {
+//
+//            for (int i = 0; i < aPerson.getHobbies().size(); i++) {
+//                if (aPerson.getHobbies().get(i) == null) {
+//                    // throw new NotFoundException(hobby)
+//                }
+//            }
+//        } else {
+//            //throw new NotFoundException(hobby)
+//        }
+//
+//        if (aPerson.getPhones() != null) {
+//            for (int i = 0; i < aPerson.getPhones().size(); i++) {
+//                if (aPerson.getPhones().get(i) == null) {
+//                    // throw new NotFoundException(phone)
+//                }
+//            }
+//        } else {
+//            //throw new NotFoundException(phone)
+//        }
+//        if (aPerson.getFirstName() == null) {
+//            //throw new NotFoundException(firstname);
+//        }
+//        if (aPerson.getLastName() == null) {
+//            //throw new NotFoundException(lastname);
+//        }
+//        if (aPerson.getEmail() == null) {
+//            //throw new NotFoundException(email);
+//        }
+//        if (aPerson.getAddress() == null) {
+//            //throw new NotFoundException(address);
+//        }
+//
+//        pjpa.addPerson(aPerson);
 
-        if (person != null) {
-
-            Object jsonObject = JSONConverter.getJSONFromPerson(person);
-            return jsonObject;
-
-        } else {
-            //cast exception
-            return null;
-        }
     }
 
     @DELETE

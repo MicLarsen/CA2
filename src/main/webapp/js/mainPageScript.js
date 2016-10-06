@@ -58,4 +58,9 @@ $(document).ready(function () {
         
         $("#mainContent").load("webDocumentation/howToDemo.html");
     })
+    
+    $("#getPerson").click(function() {
+        
+        $("#mainContent").load("webPerson/getPerson.html");
+    })
 })

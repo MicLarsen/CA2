@@ -75,5 +75,4 @@ public class Person extends InfoEntity{
     public void setHobbies(List<Hobby> hobbies) {
         this.hobbies = hobbies;
     }
-    
 }

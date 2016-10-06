@@ -27,6 +27,6 @@ public interface PersonFacade {
     
     public Person editPerson(int id);
     
-    public Person addPerson(Person person);
+    public void addPerson(Person person);
 
 }
