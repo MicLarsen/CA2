@@ -19,11 +19,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import objects.Address;
 import objects.Hobby;
 import objects.Person;
 import objects.Phone;
-import objects.Result;
 import utility.JSONConverter;
 
 /**

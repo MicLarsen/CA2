@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
@@ -14,7 +15,7 @@ public class Person extends InfoEntity {
     protected String firstName;
     protected String lastName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     protected List<Hobby> hobbies;
 
     public Person() {
