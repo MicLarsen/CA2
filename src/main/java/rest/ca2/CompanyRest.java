@@ -49,7 +49,7 @@ public class CompanyRest {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getCVR")
     public String getCompanyByCVR(@PathParam("cvr") int cvr) {
-        Company c = cjpa.getCompany(cvr);
+        Company c = cjpa.getCompanyByCVR(cvr);
         if (c != null) {
             Gson gson = new GsonBuilder().create();
             Object json = gson.toJson(c);
