@@ -1,5 +1,6 @@
 package rest.ca2;
 
+import Exceptions.GenericInputException;
 import Exceptions.NoPersonFoundException;
 import JPA.PersonJPA;
 import com.google.gson.Gson;
@@ -45,11 +46,16 @@ public class PersonRest {
 
     public PersonRest() {
         this.pjpa = new PersonJPA();
-        this.hobbies = new ArrayList<Hobby>();
-        this.phones = new ArrayList<Phone>();
+        this.hobbies = new ArrayList<>();
+        this.phones = new ArrayList<>();
         this.gsonBuilder = new GsonBuilder().create();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -64,19 +70,11 @@ public class PersonRest {
         return this.gsonBuilder.toJson(person);
     }
 
-    //TEMP
-    public Person createPerson() {
-        hobbies.add(new Hobby("tennis", "plaiying tennis"));
-        hobbies.add(new Hobby("tabletennis", "playiong tabletennis"));
-
-        phones.add(new Phone(12121212, "hjem"));
-        phones.add(new Phone(12123412, "arbejde"));
-
-//        Address address = new Address("some address", "some info");
-//        Person person = new Person("michael", "Larsen", address, hobbies, phones);
-        return person;
-    }
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/complete/{id}")
@@ -99,30 +97,33 @@ public class PersonRest {
 
         persons = pjpa.getPersons();
 
-        if (persons != null) {
+        if (persons == null || persons.size() == 0) {
 
-            Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-            return jsonObject;
-        } else {
-            //cast Exception
-            return null;
+            throw new NoPersonFoundException("No persons exists in the database.");
+            
         }
+        
+        return this.gsonBuilder.toJson(persons);
     }
 
+    /**
+     *
+     * @param zip
+     * @return
+     */
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/zip")
+    @Path("/zip/{zip}")
     public Object getPersonFromCity(@PathParam("zip") int zip) {
 
         persons = pjpa.getPersons(zip);
-        if (persons != null) {
+        if (persons == null || persons.size() == 0) {
 
-            Object jsonObject = JSONConverter.getJSONFromPerson(persons);
-            return jsonObject;
-        } else {
-            //cast Exception 
-            return null;
+            throw new NoPersonFoundException("No persons with the requested ZIP code.");
+            
         }
+        
+        return this.gsonBuilder.toJson(persons);
     }
 
     @POST
@@ -131,43 +132,48 @@ public class PersonRest {
     @Path("add")
     public void addPerson(String newPerson) {
 
-        System.out.println(newPerson);
         Person aPerson = new Gson().fromJson(newPerson, Person.class);
+        
         pjpa.addPerson(aPerson);
-//        if (aPerson.getHobbies() != null) {
-//
-//            for (int i = 0; i < aPerson.getHobbies().size(); i++) {
-//                if (aPerson.getHobbies().get(i) == null) {
-//                    // throw new NotFoundException(hobby)
-//                }
-//            }
-//        } else {
-//            //throw new NotFoundException(hobby)
-//        }
-//
-//        if (aPerson.getPhones() != null) {
-//            for (int i = 0; i < aPerson.getPhones().size(); i++) {
-//                if (aPerson.getPhones().get(i) == null) {
-//                    // throw new NotFoundException(phone)
-//                }
-//            }
-//        } else {
-//            //throw new NotFoundException(phone)
-//        }
-//        if (aPerson.getFirstName() == null) {
-//            //throw new NotFoundException(firstname);
-//        }
-//        if (aPerson.getLastName() == null) {
-//            //throw new NotFoundException(lastname);
-//        }
-//        if (aPerson.getEmail() == null) {
-//            //throw new NotFoundException(email);
-//        }
-//        if (aPerson.getAddress() == null) {
-//            //throw new NotFoundException(address);
-//        }
-//
-//        pjpa.addPerson(aPerson);
+        
+        if (aPerson.getHobbies() != null) {
+
+            for (int i = 0; i < aPerson.getHobbies().size(); i++) {
+                
+                Hobby h = aPerson.getHobbies().get(i);
+                if (h.getName() == null) {
+                    throw new GenericInputException("Hobby missing name property.");
+                }
+            }
+        }
+
+        if (aPerson.getPhones() != null) {
+            for (int i = 0; i < aPerson.getPhones().size(); i++) {
+                
+                Phone ph = aPerson.getPhones().get(i);
+                
+                if (ph.getNumber() == 0) {
+                    throw new GenericInputException("Phone number property missing number.");
+                }
+
+            }
+        } else {
+            throw new GenericInputException("Missing phone numbers array.");
+        }
+        if (aPerson.getFirstName() == null) {
+            throw new GenericInputException("Missing first name property.");
+        }
+        if (aPerson.getLastName() == null) {
+            throw new GenericInputException("Missing last name property.");
+        }
+        if (aPerson.getEmail() == null) {
+            throw new GenericInputException("Missing e-mail property.");
+        }
+        if (aPerson.getAddress() == null) {
+            throw new GenericInputException("Missing address property.");
+        }
+
+        pjpa.addPerson(aPerson);
 
     }
 
