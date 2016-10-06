@@ -11,8 +11,6 @@ package Exceptions;
  */
 public class NoPersonFoundException extends RuntimeException{
     
-    
-    
     public NoPersonFoundException(String message) {
         super(message);
     }
