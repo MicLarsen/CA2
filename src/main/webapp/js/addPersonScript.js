@@ -32,9 +32,22 @@ $(document).ready(function () {
                 hobbyList.push(hobby);
             }
         }
+        
+        var temp = $('#cityinfo').val();
+        var tempArray = temp.split('-');
+  
+        var cityInfo = {
+            ZIP: tempArray[0],
+            CITY: tempArray[1]
+        }
+        console.log(cityInfo);
+        console.log(tempArray.length);
+        console.log(temp);
+
         var address = {
-            Street: $("#city").val(),
-            AdditionalInfo: $("#zip").val()
+            Street: $("#address").val(),
+            AdditionalInfo: $("#addInfo").val(),
+            cityInfo: cityInfo
         }
 
         var person = {
@@ -63,14 +76,31 @@ $(document).ready(function () {
                 console.log('fail' + status.code);
             }
         });
-
     })
 
-$(document).on("pageload",function(){
-    
-  
-
-});
+    $("load", function () {
+        $.ajax({
+            type: "GET",
+            url: "api/cityinfo/list",
+            data: false, // now data come in this function
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (obj) {
+                var array = obj;
+                var option = '';
+                for (var i = 0; i < array.length; i++) {
+                    option += '<option value="' + array[i].ZIP +'-'+array[i].CITY+'">' + array[i].ZIP + "-" + array[i].CITY + '</option>';
+                }
+                $('#cityinfo').append(option);
+            },
+            error: function (jqXHR, status) {
+                // error handler
+                console.log(jqXHR);
+                console.log('fail' + status.code);
+            }
+        });
+    });
 
     $("#addPhone").click(function () {
         $("#phoneAdded").append('<div id="phoneDiv">Phonenumber : <input class="phone#" type="text" placeholder="add new number"> Phonedesciption : <input class="phoneDesc" type="text" placeholder="add phone desciption"><br></div>');

@@ -23,7 +23,7 @@ public class OtherInfoJPA implements OtherInfoFacade {
     List<CityInfo> cityInfoList;
 
     public OtherInfoJPA() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("REST");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
         this.em = emf.createEntityManager();
         em.getTransaction().begin();
     }
