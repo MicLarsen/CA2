@@ -132,11 +132,7 @@ public class PersonRest {
     @Path("add")
     public void addPerson(String newPerson) {
         
-        System.out.println(newPerson);
-
         Person aPerson = new Gson().fromJson(newPerson, Person.class);
-        
-        pjpa.addPerson(aPerson);
         
         if (aPerson.getHobbies() != null) {
 
