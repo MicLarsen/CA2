@@ -8,12 +8,14 @@ package Exceptions;
 import static Exceptions.NoPersonFoundExceptionMapper.gson;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 import objects.ErrorMessage;
 
 /**
  *
  * @author nicolaicornelis
  */
+@Provider
 public class GenericInputExceptionMapper implements ExceptionMapper<GenericInputException> {
 
     @Override
