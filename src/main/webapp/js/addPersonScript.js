@@ -10,33 +10,45 @@ $(document).ready(function () {
         var phoneList = new Array;
         for (var i = 0; i < phones.length; i++) {
             if (i % 2 === 0) {
-                phoneList.push('{name: ' + phones[i] + ', description:' + phones[i + 1] + '}');
+                var phone = {
+                    number: phones[i],
+                    description: phones[i + 1]
+                }
+                phoneList.push(phone);
             }
         }
         var hobbies = new Array;
         $('#hobbies :input').each(function () {
             var attr = $(this).val();
             hobbies.push(attr);
-        });
+        })
         var hobbyList = new Array;
         for (var i = 0; i < hobbies.length; i++) {
             if (i % 2 === 0) {
-                hobbyList.push('{name: ' + hobbies[i] + ', description:' + hobbies[i + 1] + '}');
+                var hobby = {
+                    name: hobbies[i],
+                    description: hobbies[i + 1]
+                }
+                hobbyList.push(hobby);
             }
         }
+        var address = {
+            Street: $("#city").val(),
+            AdditionalInfo: $("#zip").val()
+        }
 
-        var city = $("#city").val();
-        var zip = $("#zip").val();
-
-        var newPerson = "{firstname: " + $("#firstname").val() + ", lastname:" + $("#lastname").val() + ",phones: [" + phoneList + "],hobbies: [" + hobbyList + "]}";
-//        var newPerson = "{firstname: " + $("#firstname").val() + ", lastname:" + $("#lastname").val() + ",address: {" + $("#address").val() + ","+city +"},phones: [" + phoneList + "],hobbies: [" + hobbyList + "]}";
-
-        console.log(newPerson);
+        var person = {
+            firstName: $("#firstname").val(),
+            lastName: $("#lastname").val(),
+            address: address,
+            phones: phoneList,
+            hobbies: hobbyList
+        }
 
         $.ajax({
             type: "POST",
             url: "api/person/add",
-            data: newPerson, // now data come in this function
+            data: JSON.stringify(person), // now data come in this function
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",
