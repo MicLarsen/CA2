@@ -30,15 +30,17 @@ public class CompanyJPA implements CompanyFacade {
 
             em.getTransaction().begin();
 //            c = em.find(Company.class, cvr);
-            Query q = em.createNativeQuery("SELECT c FROM Company c WHERE c.cvr = ?",Company.class);
-            q.setParameter(1, cvr);
+            Query q = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr",Company.class);
+            q.setParameter("cvr", cvr);
             
-            c = (Company) q.getResultList();
             
             em.getTransaction().commit();
+            c = (Company) q.getSingleResult();
             return c;
 
         } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("something went wrong");
             em.getTransaction().rollback();
             return null;
         } finally{
