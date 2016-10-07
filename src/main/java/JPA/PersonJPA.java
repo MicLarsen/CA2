@@ -37,45 +37,103 @@ public class PersonJPA implements PersonFacade {
     }
 
     @Override
-    public Person getPersonFull(int id) {
-        try {
-            aPerson = em.find(Person.class, id);
-
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-        return person;
-    }
-
-    @Override
-    public Person getPersonSimpel(int id) {
-        System.out.println("kjdrfhg");
-                
+    public Person getPersonById(int id) {
         try {
             Query personQuery = em.createQuery("SELECT u FROM Person u INNER JOIN InfoEntity i WHERE i.id = :id", Person.class);
             personQuery.setParameter("id", 1);
-            System.out.println("dfkjglkdfgjlkdfjg");
             this.person = (Person) personQuery.getSingleResult();
             em.getTransaction().commit();
         } finally {
-            System.out.println("fdglkjdflgjdflkgjlkfdgjkldfjglkdfjglk");
             em.close();
         }
-        System.out.println("person: " + person.getFirstName());
         return person;
     }
 
     @Override
-    public List<Person> getPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person getPersonByPhone(int phoneNum) {
+        try {
+
+            Query q = em.createQuery("SELECT c FROM Person c INNER JOIN Phone p WHERE p.number=:phone", Person.class);
+            q.setParameter("phone", phone);
+
+            this.person = (Person) q.getSingleResult();
+
+            return person;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public List<Person> getPersons(int zipCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Person> getPersonsByZip(int zipCode) {
+        List<Person> somePersons;
+        try {
+            Query q = em.createQuery("SELECT p FROM Person p INNER JOIN Address a INNER JOIN CityInfo i WHERE i.ZIP=:zip", Person.class);
+            q.setParameter("zip", zipCode);
+            em.getTransaction().commit();
+            somePersons = q.getResultList();
+
+            return somePersons;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+        }
     }
 
+    @Override
+    public List<Person> getAllPersonWithHobby(Hobby hobby){
+        List<Person> somePersons;
+        try {
+            
+            Query q = em.createQuery("SELECT p FROM Person p INNER JOIN Hobby h WHERE h.name=:hobby", Person.class);
+            q.setParameter("hobby", hobby.getName());
+            
+            em.getTransaction().commit();
+            somePersons = q.getResultList();
+            
+            return somePersons;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            em.close();
+        }
+        
+        
+    }
+    
+    @Override
+    public int getHobbyCount(Hobby hobby){
+        int count = 0;
+        try {
+            Query q = em.createQuery("SELECT h.id FROM Hobby h WHERE h.name=:hobby");
+            q.setParameter("hobby", hobby.getName());
+            int id = (int) q.getSingleResult();
+            em.getTransaction().commit();
+            
+            
+            em.getTransaction().begin();
+            Query q2 = em.createQuery("SELECT COUNT(p.id) FROM Person p INNER JOIN Hobby h WHERE h.id=:id");
+            q2.setParameter("id", id);
+            em.getTransaction().commit();
+            count = (int) q.getSingleResult();
+            
+            return count;
+            
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return count;
+        } finally {
+            em.close();
+        }
+        
+    }
+    
+    
     @Override
     public Person deletePerson(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -87,25 +145,20 @@ public class PersonJPA implements PersonFacade {
     }
 
     @Override
-    public void addPerson(Person person) {
+    public boolean addPerson(Person person) {
         this.person = person;
         try {
             try {
                 em.persist(person);
-//                em.merge(new Address(person.getAddress().getStreet(), person.getAddress().getAdditionalInfo()));
-//                for (int i = 0; i < person.getPhones().size(); i++) {
-//                    em.merge(new Phone(person.getPhones().get(i).getNumber(), person.getPhones().get(i).getDescription()));
-//                }
-//                for (int i = 0; i < person.getHobbies().size(); i++) {
-//                    em.merge(new Hobby(person.getHobbies().get(i).getName(), person.getHobbies().get(i).getDescription()));
-//                }
                 em.getTransaction().commit();
             } catch (Exception e) {
                 //throw new SQLException(e);
+                return false;
             }
         } finally {
             em.close();
         }
+        return true;
     }
 
 }

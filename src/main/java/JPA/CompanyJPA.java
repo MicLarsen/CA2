@@ -1,7 +1,6 @@
 package JPA;
 
 import RESTfacade.CompanyFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -44,6 +43,7 @@ public class CompanyJPA implements CompanyFacade {
         }
     }
 
+    @Override
     public Company getCompanyByPhone(int phone) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -66,6 +66,7 @@ public class CompanyJPA implements CompanyFacade {
 
     }
 
+    @Override
     public List<Company> getCompaniesWithXOrMoreEmpl(int num){
         EntityManager em = emf.createEntityManager();
         List<Company> companies;
@@ -84,9 +85,6 @@ public class CompanyJPA implements CompanyFacade {
         } finally {
             em.close();
         }
-        
-        
-        
     }
     
     @Override

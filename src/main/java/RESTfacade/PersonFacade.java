@@ -15,18 +15,20 @@ import objects.Person;
  */
 public interface PersonFacade {
 
-    public Person getPersonSimpel(int id);
+    public Person getPersonById(int id);
     
-    public Person getPersonFull(int id);
+    public Person getPersonByPhone(int phoneNum);
 
-    public List<Person> getPersons();
+    public List<Person> getAllPersonWithHobby(Hobby hobby);
 
-    public List<Person> getPersons(int zipCode);
+    public List<Person> getPersonsByZip(int zipCode);
+    
+    public int getHobbyCount(Hobby hobby);
     
     public Person deletePerson(int id);
     
     public Person editPerson(int id);
     
-    public void addPerson(Person person);
+    public boolean addPerson(Person person);
 
 }

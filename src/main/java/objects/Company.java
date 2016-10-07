@@ -19,24 +19,7 @@ public class Company extends InfoEntity {
     public Company() {
     }
 
-    public Company(String name, String description, int cvr, int NumEmployees, long marketValue) {
-        this.name = name;
-        this.description = description;
-        this.cvr = cvr;
-        this.NumEmployees = NumEmployees;
-        this.marketValue = marketValue;
-    }
-
-    public Company(String name, String description, int cvr, int NumEmployees, long marketValue, String email) {
-        this.name = name;
-        this.description = description;
-        this.cvr = cvr;
-        this.NumEmployees = NumEmployees;
-        this.marketValue = marketValue;
-        this.email = email;
-    }
-
-    public Company(String name, String description, int cvr, int NumEmployees, long marketValue, List<Phone> phones, String email) {
+    public Company(String name, String description, int cvr, int NumEmployees, long marketValue, List<Phone> phones, String email, Address address) {
         this.name = name;
         this.description = description;
         this.cvr = cvr;
@@ -44,6 +27,7 @@ public class Company extends InfoEntity {
         this.marketValue = marketValue;
         this.phones = phones;
         this.email = email;
+        this.address = address;
     }
 
     public Address getAddress(){
