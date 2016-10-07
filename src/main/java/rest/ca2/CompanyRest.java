@@ -51,7 +51,7 @@ public class CompanyRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getByCVR")
-    public String getCompanyByCVR(@PathParam("cvr") int cvr) {
+    public Object getCompanyByCVR(@PathParam("cvr") int cvr) {
         Company c = cjpa.getCompanyByCVR(cvr);
         if (c != null) {
             return gsonBuilder.toJson(c);
@@ -69,7 +69,7 @@ public class CompanyRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getByPhone")
-    public String getCompanyByPhone(@PathParam("phoneNum") int phoneNum){
+    public Object getCompanyByPhone(@PathParam("phoneNum") int phoneNum){
         Company c = cjpa.getCompanyByPhone(phoneNum);
         if(c != null){
             return gsonBuilder.toJson(c);
@@ -82,7 +82,7 @@ public class CompanyRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getMoreThan")
-    public String getCopmaniesWithXOrMoreEmpl(@PathParam("numEmployees") int num){
+    public Object getCopmaniesWithXOrMoreEmpl(@PathParam("numEmployees") int num){
         List<Company> companies = cjpa.getCompaniesWithXOrMoreEmpl(num);
         return gsonBuilder.toJson(companies);
     }
