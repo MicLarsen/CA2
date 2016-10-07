@@ -36,7 +36,7 @@ public class CompanyRest {
     Gson gsonBuilder;
 
     /**
-     * Creates a new instance of CompanyRest
+     * Creates a new instance of CompanyRest!!!!
      */
     public CompanyRest() {
         cjpa = new CompanyJPA();
