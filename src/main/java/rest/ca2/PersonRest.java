@@ -59,7 +59,7 @@ public class PersonRest {
     @Path("/{id}")
     public Object getPerson(@PathParam("id") int id) {
 
-        Person person = pjpa.getPersonSimpel(id);
+//        Person person = pjpa.getPersonSimpel(id);
 //        if (person == null) {
 //            throw new NoPersonFoundException("No person with the requested ID exists.");
 //        }

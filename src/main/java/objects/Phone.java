@@ -21,7 +21,7 @@ public class Phone {
     private int number;
     private String description;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private InfoEntity infoEntity;
       
     public Phone(){}
