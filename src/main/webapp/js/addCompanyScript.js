@@ -29,6 +29,7 @@ $(document).ready(function() {
             ZIP: tempArray[0],
             CITY: tempArray[1]
         }
+        
         console.log(cityInfo);
         console.log(tempArray.length);
         console.log(temp);
