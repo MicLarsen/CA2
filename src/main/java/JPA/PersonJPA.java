@@ -50,19 +50,19 @@ public class PersonJPA implements PersonFacade {
 
     @Override
     public Person getPersonSimpel(int id) {
+        System.out.println("kjdrfhg");
+                
         try {
-            this.person = em.find(Person.class, id);
-//            Query phonequery = em.createQuery("SELECT u FROM phone u WHERE id = ?").setParameter(1, id);
-//            this.phones = (List<Phone>) phonequery.getResultList();
-//            Query hobbyquery = em.createQuery("SELECT u FROM hobby u WHERE id = ?").setParameter(1, id);
-//            this.hobbies = (List<Hobby>) hobbyquery.getResultList();
-//            address = em.find(Address.class, id);
-
+            Query personQuery = em.createQuery("SELECT u FROM Person u INNER JOIN InfoEntity i WHERE i.id = :id", Person.class);
+            personQuery.setParameter("id", 1);
+            System.out.println("dfkjglkdfgjlkdfjg");
+            this.person = (Person) personQuery.getSingleResult();
             em.getTransaction().commit();
-//            person = new Person(aPerson.getFirstName(), aPerson.getLastName(), address, hobbies, phones);
         } finally {
+            System.out.println("fdglkjdflgjdflkgjlkfdgjkldfjglkdfjglk");
             em.close();
         }
+        System.out.println("person: " + person.getFirstName());
         return person;
     }
 
