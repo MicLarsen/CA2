@@ -7,10 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import objects.Address;
-import objects.CityInfo;
 import objects.Company;
-import objects.Phone;
 
 /**
  *
@@ -27,7 +24,7 @@ public class CompanyJPA implements CompanyFacade {
     @Override
     public Company getCompanyByCVR(int cvr) {
         EntityManager em = emf.createEntityManager();
-        Company c = null;
+        Company c;
         try {
 
             em.getTransaction().begin();
@@ -49,18 +46,49 @@ public class CompanyJPA implements CompanyFacade {
 
     public Company getCompanyByPhone(int phone) {
         EntityManager em = emf.createEntityManager();
-        Phone p = em.find(Phone.class, phone);
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery("SELECT c FROM Company c INNER JOIN Phone p WHERE p.number=:phone", Company.class);
+            q.setParameter("phone", phone);
+            em.getTransaction().commit();
 
-        Query query = em.createNativeQuery("SELECT c.name, c.description, c.cvr, c.numemployees, c.marketvalue FROM Company c WHERE c.id = ?", Company.class);
-        query.setParameter(1, phone);
+            List<Company> companies = q.getResultList();
+            Company c = companies.get(0);
 
-        List<Company> companies = query.getResultList();
-        Company c = companies.get(0);
-
-        return c;
+            return c;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            //return exception!
+            return null;
+        } finally{
+            em.close();
+        }
 
     }
 
+    public List<Company> getCompaniesWithXOrMoreEmpl(int num){
+        EntityManager em = emf.createEntityManager();
+        List<Company> companies;
+        try {
+            Query q = em.createQuery("SELECT c FROM Company c WHERE c.NumEmployees >= :num", Company.class);
+            q.setParameter("num", num);
+            
+            companies = q.getResultList();
+            
+            
+            return companies;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            //Return exception!
+            return null;
+        } finally {
+            em.close();
+        }
+        
+        
+        
+    }
+    
     @Override
     public boolean deleteCompany(int cvr) {
         EntityManager em = emf.createEntityManager();
@@ -106,11 +134,11 @@ public class CompanyJPA implements CompanyFacade {
     public boolean createCompany(Company comp) {
         EntityManager em = emf.createEntityManager();
         try {
-            
+
             em.getTransaction().begin();
             em.persist(comp);
             em.getTransaction().commit();
-            
+
             return true;
         } catch (Exception e) {
             em.getTransaction().rollback();

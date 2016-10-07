@@ -46,6 +46,10 @@ public class Company extends InfoEntity {
         this.email = email;
     }
 
+    public Address getAddress(){
+        return address;
+    }
+    
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
