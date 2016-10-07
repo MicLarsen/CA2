@@ -20,10 +20,13 @@ import objects.ErrorMessage;
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable>{
     
-    static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    static Gson gson = new GsonBuilder().create();
 
     @Override
     public Response toResponse(Throwable e) {
+        
+        System.out.println(e.getClass());
+        e.printStackTrace();
          ErrorMessage errorMessage = new ErrorMessage(e.getMessage(), 500 , "");
         
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

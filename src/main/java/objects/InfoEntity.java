@@ -25,9 +25,6 @@ public class InfoEntity implements Serializable {
     protected int id;
     protected String email;
     
-    
-    
-    
     @OneToMany(mappedBy = "infoEntity", cascade = CascadeType.PERSIST)
     protected List<Phone> phones;
                        

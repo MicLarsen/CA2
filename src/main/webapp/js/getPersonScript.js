@@ -4,7 +4,6 @@ $(document).ready(function () {
 
         console.log("clicking simpelList button");
 
-
         $.ajax({
             type: "GET",
             url: "api/person/1",

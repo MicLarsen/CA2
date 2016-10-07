@@ -105,74 +105,76 @@ public class PersonRest {
 //        return this.gsonBuilder.toJson(persons);
 //    }
 //
-//    /**
-//     *
-//     * @param zip
-//     * @return
-//     */
-//    @GET
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("/zip/{zip}")
-//    public Object getPersonFromCity(@PathParam("zip") int zip) {
-//
-//        persons = pjpa.getPersons(zip);
-//        if (persons == null || persons.size() == 0) {
-//
-//            throw new NoPersonFoundException("No persons with the requested ZIP code.");
-//            
-//        }
-//        
-//        return this.gsonBuilder.toJson(persons);
-//    }
-//
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("add")
-//    public void addPerson(String newPerson) {
-//        
-//        Person aPerson = new Gson().fromJson(newPerson, Person.class);
-//        
-//        if (aPerson.getHobbies() != null) {
-//
-//            for (int i = 0; i < aPerson.getHobbies().size(); i++) {
-//                
-//                Hobby h = aPerson.getHobbies().get(i);
-//                if (h.getName() == null) {
-//                    throw new GenericInputException("Hobby missing name property.");
-//                }
-//            }
-//        }
-//
-//        if (aPerson.getPhones() != null) {
-//            for (int i = 0; i < aPerson.getPhones().size(); i++) {
-//                
-//                Phone ph = aPerson.getPhones().get(i);
-//                
-//                if (ph.getNumber() == 0) {
-//                    throw new GenericInputException("Phone number property missing number.");
-//                }
-//
-//            }
-//        } else {
-//            throw new GenericInputException("Missing phone numbers array.");
-//        }
-//        if (aPerson.getFirstName() == null) {
-//            throw new GenericInputException("Missing first name property.");
-//        }
-//        if (aPerson.getLastName() == null) {
-//            throw new GenericInputException("Missing last name property.");
-//        }
-//        if (aPerson.getEmail() == null) {
-//            throw new GenericInputException("Missing e-mail property.");
-//        }
-//        if (aPerson.getAddress() == null) {
-//            throw new GenericInputException("Missing address property.");
-//        }
-//
-//        pjpa.addPerson(aPerson);
-//
-//    }
+    /**
+     *
+     * @param zip
+     * @return
+     */
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/zip/{zip}")
+    public Object getPersonFromCity(@PathParam("zip") int zip) {
+
+        persons = pjpa.getPersons(zip);
+        if (persons == null || persons.size() == 0) {
+
+            throw new NoPersonFoundException("No persons with the requested ZIP code.");
+            
+        }
+        
+        return this.gsonBuilder.toJson(persons);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("add")
+    public void addPerson(String newPerson) {
+        
+        System.out.println("kdfjhg");
+        
+        Person aPerson = new Gson().fromJson(newPerson, Person.class);
+        
+        if (aPerson.getHobbies() != null) {
+
+            for (int i = 0; i < aPerson.getHobbies().size(); i++) {
+                
+                Hobby h = aPerson.getHobbies().get(i);
+                if (h.getName() == null) {
+                    throw new GenericInputException("Hobby missing name property.");
+                }
+            }
+        }
+
+        if (aPerson.getPhones() != null) {
+            for (int i = 0; i < aPerson.getPhones().size(); i++) {
+                
+                Phone ph = aPerson.getPhones().get(i);
+                
+                if (ph.getNumber() == 0) {
+                    throw new GenericInputException("Phone number property missing number.");
+                }
+
+            }
+        } else {
+            throw new GenericInputException("Missing phone numbers array.");
+        }
+        if (aPerson.getFirstName() == null) {
+            throw new GenericInputException("Missing first name property.");
+        }
+        if (aPerson.getLastName() == null) {
+            throw new GenericInputException("Missing last name property.");
+        }
+        if (aPerson.getEmail() == null) {
+            throw new GenericInputException("Missing e-mail property.");
+        }
+        if (aPerson.getAddress() == null) {
+            throw new GenericInputException("Missing address property.");
+        }
+        aPerson.addIEToPhone();
+        pjpa.addPerson(aPerson);
+
+    }
 //
 //    @DELETE
 //    @Consumes(MediaType.APPLICATION_JSON)

@@ -63,4 +63,14 @@ $(document).ready(function () {
         
         $("#mainContent").load("webPerson/getPerson.html");
     })
+    
+    $("#getCompany").click(function() {
+        
+        $("#mainContent").load("webCompany/getCompany.html");
+    })
+    
+    $("#createCompany").click(function() {
+        
+        $("#mainContent").load("webCompany/addCompany.html");
+    })
 })
