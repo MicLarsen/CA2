@@ -23,6 +23,8 @@ public interface PersonFacade {
 
     public List<Person> getPersonsByZip(int zipCode);
     
+    public int getHobbyCount(Hobby hobby);
+    
     public Person deletePerson(int id);
     
     public Person editPerson(int id);

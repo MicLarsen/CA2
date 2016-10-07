@@ -57,23 +57,23 @@ public class companyJPATestRUN {
 
 
 
-        List<Hobby> hobbies = new ArrayList();
-        hobbies.add(new Hobby("guitar", "sdsf"));
-
-        Person p = new Person("Nicklas", "Molving", new Address("Hej", "asd", new CityInfo(3992, "Slædepatrulje Sirius")), hobbies, phones);
-        
-        pjpa.addPerson(p);
-        
-        List<Person> persons = pjpa.getPersonsByZip(3992);
-        System.out.println(persons.get(0).getFirstName());
-        
-        
-        persons = pjpa.getAllPersonWithHobby(new Hobby("guitar", "sdsf"));
-        
-        System.out.println(persons.get(0).getFirstName());
-        
-        System.out.println(pjpa.getHobbyCount(hobbies.get(0)));
-        
+//        List<Hobby> hobbies = new ArrayList();
+//        hobbies.add(new Hobby("guitar", "sdsf"));
+//
+//        Person p = new Person("Nicklas", "Molving", new Address("Hej", "asd", new CityInfo(3992, "Slædepatrulje Sirius")), hobbies, phones);
+//        
+//        pjpa.addPerson(p);
+//        
+//        List<Person> persons = pjpa.getPersonsByZip(3992);
+//        System.out.println(persons.get(0).getFirstName());
+//        
+//        
+//        persons = pjpa.getAllPersonWithHobby(new Hobby("guitar", "sdsf"));
+//        
+//        System.out.println(persons.get(0).getFirstName());
+//        
+//        System.out.println(pjpa.getHobbyCount(hobbies.get(0)));
+//        
     }
 
 }
