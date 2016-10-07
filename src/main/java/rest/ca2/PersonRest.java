@@ -55,83 +55,48 @@ public class PersonRest {
      * @return
      */
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Object getPerson(@PathParam("id") int id) {
+    public Object getPersonById(@PathParam("id") int id) {
 
-        Person person = pjpa.getPersonSimpel(id);
-//        if (person == null) {
-//            throw new NoPersonFoundException("No person with the requested ID exists.");
-//        }
-        System.out.println("rest: " + person.getFirstName());
+        Person p = pjpa.getPersonById(id);
+        
+        System.out.println("rest: " + p.getFirstName());
         System.out.println("hello there");
-        return this.gsonBuilder.toJson(person);
+        return this.gsonBuilder.toJson(p);
         
     }
-
-//    /**
-//     *
-//     * @param id
-//     * @return
-//     */
-//    @GET
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("/complete/{id}")
-//    public Object getPersonComplete(@PathParam("id") int id) {
-//
-//        person = pjpa.getPersonFull(id);
-//
-//        if (person == null) {
-//            throw new NoPersonFoundException("No person with the requested ID exists.");
-//        }
-//        
-//        return this.gsonBuilder.toJson(person);
-//
-//    }
-//
-//    @GET
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("/complete")
-//    public Object getPersonsComplete() {
-//
-//        persons = pjpa.getPersons();
-//
-//        if (persons == null || persons.size() == 0) {
-//
-//            throw new NoPersonFoundException("No persons exists in the database.");
-//            
-//        }
-//        
-//        return this.gsonBuilder.toJson(persons);
-//    }
-//
-    /**
-     *
-     * @param zip
-     * @return
-     */
+    
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/zip/{zip}")
-    public Object getPersonFromCity(@PathParam("zip") int zip) {
-
-        persons = pjpa.getPersons(zip);
-        if (persons == null || persons.size() == 0) {
-
-            throw new NoPersonFoundException("No persons with the requested ZIP code.");
-            
-        }
-        
-        return this.gsonBuilder.toJson(persons);
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getByPhone")
+    public Object getPersonByPhone(@PathParam("phone") int phone){
+        Person p = pjpa.getPersonByPhone(phone);
+        return gsonBuilder.toJson(p);
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getPWithHobby")
+    public Object getPersonsByHobby(@PathParam("hobby") Hobby hobby){
+        List<Person> p = pjpa.getAllPersonWithHobby(hobby);
+        return gsonBuilder.toJson(p);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("hobbyCount")
+    public Object getHobbyCount(@PathParam("hobby") Hobby hobby){
+        int count = pjpa.getHobbyCount(hobby);
+        return gsonBuilder.toJson(count);
+    }
+    
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("add")
     public void addPerson(String newPerson) {
-        
-        System.out.println("kdfjhg");
         
         Person aPerson = new Gson().fromJson(newPerson, Person.class);
         
@@ -171,38 +136,38 @@ public class PersonRest {
         if (aPerson.getAddress() == null) {
             throw new GenericInputException("Missing address property.");
         }
-        aPerson.addIEToPhone();
+
         pjpa.addPerson(aPerson);
 
     }
-//
-//    @DELETE
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("delete")
-//    public boolean deletePerson(@QueryParam("id") int id
-//    ) {
-//
-//        boolean isDeleted = true; //= pr.deletePerson(id);
-//        if (isDeleted) {
-//            return true;
-//        } else {
-//            //cast Exception 
-//            return false;
-//        }
-//    }
-//
-//    @PUT
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Path("edit")
-//    public Person editPerson(@QueryParam("object") String person,
-//            @PathParam("id") int id
-//    ) {
-//
-//
-////        fp.editPerson(editedPerson);
-//
-//        return null;
-//    }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("delete")
+    public boolean deletePerson(@QueryParam("id") int id
+    ) {
+
+        boolean isDeleted = true; //= pr.deletePerson(id);
+        if (isDeleted) {
+            return true;
+        } else {
+            //cast Exception 
+            return false;
+        }
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("edit")
+    public Person editPerson(@QueryParam("object") String person,
+            @PathParam("id") int id
+    ) {
+
+
+//        fp.editPerson(editedPerson);
+
+        return null;
+    }
 
 }
